@@ -80,5 +80,7 @@ typedef NS_ENUM(NSInteger, UIViewLayoutType) {
 // view会被BaseViewController持有，如果view在当前ViewController中也被持有，会导致view在dismiss后内存不会释放，要等到当前ViewController pop掉后才能释放
 - (void)presentView:(UIView *)view layout:(UIViewLayoutType)layout;
 - (void)dismissPresentedView;
+- (void)dismissPresentedViewWithCompletion:(void (^)())completion;
+- (void)presentOrHideView:(UIView *)view layout:(UIViewLayoutType)layout;
 
 @end

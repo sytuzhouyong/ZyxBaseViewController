@@ -703,9 +703,20 @@
     self.presentedBackgroundButton = backgroundButton;
     self.presentedView = view;
     self.layout = layout;
+    
+    view.layer.cornerRadius = 5;
+    view.clipsToBounds = NO;
+    view.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+    view.layer.shadowOffset = CGSizeMake(-3, 3);
+    view.layer.shadowOpacity = 0.8;
 }
 
 - (void)dismissPresentedViewWithCompletion:(void (^)())completion {
+    if (_presentedView == nil) {
+        completion();
+        return;
+    }
+    
     NSArray<NSValue *> *points = [self pointsWithPresentView:_presentedView andLayoutType:_layout];
     CGPoint endPoint = [points.firstObject CGPointValue];
     
@@ -745,7 +756,7 @@
     
     switch (layout) {
         case UIViewLayoutTypeTopLeft:
-            startPoint = CGPoint(self.view.x - viewWidth, self.view.y - viewHeight);
+            startPoint = CGPoint(self.view.x - viewWidth, self.titleView.bottomY);
             endPoint   = CGPoint(self.view.x, self.view.y);
             break;
         case UIViewLayoutTypeTopCenter:
@@ -753,7 +764,7 @@
             endPoint   = CGPoint(centerX, self.titleView.bottomY);
             break;
         case UIViewLayoutTypeTopRight:
-            startPoint = CGPoint(self.view.rightX, self.view.y - viewHeight);
+            startPoint = CGPoint(self.view.rightX, self.titleView.bottomY);
             endPoint   = CGPoint(self.view.rightX - viewWidth, self.titleView.bottomY);
             break;
         case UIViewLayoutTypeCenterLeft:
