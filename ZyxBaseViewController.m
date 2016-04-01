@@ -657,6 +657,14 @@
     [self.titleView layoutIfNeeded];
 }
 
+- (void)presentOrHideView:(UIView *)view layout:(UIViewLayoutType)layout {
+    if (_presentedView != nil) {
+        [self dismissPresentedView];
+    } else {
+        [self presentView:view layout:layout];
+    }
+}
+
 - (void)presentView:(UIView *)view layout:(UIViewLayoutType)layout {
     if (_presentedView != nil) {
         [self dismissPresentedViewWithCompletion:^{
