@@ -299,7 +299,7 @@
 - (CGFloat)calcTitleWidth {
     NSDictionary *dict = @{NSFontAttributeName:self.titleLabel.font};
     CGFloat width = [self.title sizeWithAttributes:dict].width;
-    width = floorf(width) + 4;
+    width = MIN(floorf(width) + 4, self.view.frame.size.width - self.leftBarButtonWidth - self.rightBarButtonWidth);
     return width;
 }
 
